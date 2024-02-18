@@ -1,6 +1,6 @@
 ## EDASS - Easy Data Analysis and Statistics Software
 
-This is a self-contained Java desktop application for data analysis, data cleaning and statistics. It is created to have a simple interface with a low learning curve and 
+This is a self-contained Java desktop application for data analysis, data transformation, filtering and statistics. It is created to have a simple interface with a low learning curve and 
 
 The analysis engine is powered by Apache Spark.
 
@@ -10,8 +10,8 @@ The analysis engine is powered by Apache Spark.
 - Histograms and frequency distributions
 - Linear and Non-linear regression
 
-### Data Cleaning features
-- Fix invalid encoding in CSV (converts to UTF-8)
+### Data Transformation features
 - Remove duplicate rows
-- Remove missing values or fill them with defaults
-- Make data tablular (removes extra rows and columns)
+- Filter and query data
+- Sort data
+- Group by
