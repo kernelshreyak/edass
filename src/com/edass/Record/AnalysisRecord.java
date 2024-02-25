@@ -6,8 +6,8 @@ import org.apache.spark.sql.Row;
 public class AnalysisRecord extends EdassRecord{
     private final Dataset<Row> dataFrame;
     private final String analysisOutput;
-    public AnalysisRecord(String recordName, Dataset<Row> dataFrame, String analysisOutput) {
-        super(recordName);
+    public AnalysisRecord(String recordName, Dataset<Row> dataFrame, String analysisOutput,EdassRecord parentRecord) {
+        super(recordName,parentRecord);
         this.dataFrame = dataFrame;
         this.analysisOutput = analysisOutput;
     }

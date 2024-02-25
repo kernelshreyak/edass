@@ -24,7 +24,7 @@ public class EdassGUI implements ActionListener {
 
     AnalysisEngine engine;
 
-    private ArrayList<EdassRecord> records = new ArrayList<>();
+    private final ArrayList<EdassRecord> records = new ArrayList<>();
 
     public EdassGUI(AnalysisEngine analysis_engine){
         JFrame frame = new JFrame("EDASS 1.0");
@@ -90,7 +90,7 @@ public class EdassGUI implements ActionListener {
         String[][] rows = AnalysisUtilities.dataframeToRows(df,50);
         String[] columns = engine.getDataFrame().columns();
 
-        records.add(new AnalysisRecord("Data View " + (records.size() + 1),df,""));
+        records.add(new AnalysisRecord("Data View " + (records.size() + 1),df,"",null));
 
         JTable data_table = new JTable(rows,columns);
         JFrame new_window = new JFrame("Data View");
