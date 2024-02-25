@@ -1,3 +1,4 @@
+package com.edass;
 import com.edass.Analysis.AnalysisEngine;
 import com.edass.GUI.EdassGUI;
 
@@ -29,7 +30,6 @@ public class Main {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            System.out.println(e.toString());
         }
     }
 }

@@ -2,6 +2,7 @@ package com.edass.GUI;
 
 import com.edass.Analysis.AnalysisEngine;
 import com.edass.Analysis.AnalysisUtilities;
+import com.edass.Record.EdassRecord;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
@@ -9,6 +10,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Handles all GUI operations on EDASS
+ */
 public class EdassGUI implements ActionListener {
     JFrame frame;
 
@@ -17,6 +21,8 @@ public class EdassGUI implements ActionListener {
     JMenuItem file_import, analysis_summary,transform_remove_duplicate_rows;
 
     AnalysisEngine engine;
+
+    EdassRecord[] records;
 
     public EdassGUI(AnalysisEngine analysis_engine){
         JFrame frame = new JFrame("EDASS 1.0");
@@ -64,9 +70,17 @@ public class EdassGUI implements ActionListener {
         }
     }
 
+    private void analysisSummary(){
+        Dataset<Row> dataset_summary = engine.descriptiveStats();
+        showDataTable(dataset_summary);
+    }
+
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == file_import){
             fileImport();
+        }
+        else if(e.getSource() == analysis_summary){
+            analysisSummary();
         }
     }
 
@@ -74,10 +88,11 @@ public class EdassGUI implements ActionListener {
         String[][] rows = AnalysisUtilities.dataframeToRows(df,50);
         String[] columns = engine.getDataFrame().columns();
         JTable data_table = new JTable(rows,columns);
+        JFrame new_window = new JFrame("Data View");
+        new_window.setSize(400, 400);
         data_table.setBounds(30,40,200,300);
         JScrollPane sp=new JScrollPane(data_table);
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(sp);
-        frame.setVisible(true);
+        new_window.getContentPane().add(sp);
+        new_window.setVisible(true);
     }
 }

@@ -3,9 +3,8 @@ package com.edass.Analysis;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 
 public class AnalysisUtilities {
     public static String[][] dataframeToRows(Dataset<Row> df,int preview_rows){
