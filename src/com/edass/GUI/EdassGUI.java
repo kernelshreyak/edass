@@ -2,6 +2,7 @@ package com.edass.GUI;
 
 import com.edass.Analysis.AnalysisEngine;
 import com.edass.Analysis.AnalysisUtilities;
+import com.edass.Record.AnalysisRecord;
 import com.edass.Record.EdassRecord;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -9,6 +10,7 @@ import org.apache.spark.sql.Row;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Handles all GUI operations on EDASS
@@ -18,11 +20,11 @@ public class EdassGUI implements ActionListener {
 
     JMenuBar menubar;
     JMenu file_menu, analysis_menu,transformation_menu;
-    JMenuItem file_import, analysis_summary,transform_remove_duplicate_rows;
+    JMenuItem FILE_IMPORT, ANALYSIS_SUMMARY,transform_remove_duplicate_rows;
 
     AnalysisEngine engine;
 
-    EdassRecord[] records;
+    private ArrayList<EdassRecord> records = new ArrayList<>();
 
     public EdassGUI(AnalysisEngine analysis_engine){
         JFrame frame = new JFrame("EDASS 1.0");
@@ -39,15 +41,15 @@ public class EdassGUI implements ActionListener {
     public void createMenu(){
         menubar =new JMenuBar();
         file_menu=new JMenu("File");
-        file_import = new JMenuItem("Import");
-        file_import.addActionListener(this);
-        file_menu.add(file_import);
+        FILE_IMPORT = new JMenuItem("Import");
+        FILE_IMPORT.addActionListener(this);
+        file_menu.add(FILE_IMPORT);
         menubar.add(file_menu);
 
         analysis_menu=new JMenu("Analysis");
-        analysis_summary = new JMenuItem("Descriptive Stats");
-        analysis_summary.addActionListener(this);
-        analysis_menu.add(analysis_summary);
+        ANALYSIS_SUMMARY = new JMenuItem("Descriptive Stats");
+        ANALYSIS_SUMMARY.addActionListener(this);
+        analysis_menu.add(ANALYSIS_SUMMARY);
         menubar.add(analysis_menu);
 
         transformation_menu=new JMenu("Transformation");
@@ -76,10 +78,10 @@ public class EdassGUI implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == file_import){
+        if(e.getSource() == FILE_IMPORT){
             fileImport();
         }
-        else if(e.getSource() == analysis_summary){
+        else if(e.getSource() == ANALYSIS_SUMMARY){
             analysisSummary();
         }
     }
@@ -87,6 +89,9 @@ public class EdassGUI implements ActionListener {
     public void showDataTable(Dataset<Row> df){
         String[][] rows = AnalysisUtilities.dataframeToRows(df,50);
         String[] columns = engine.getDataFrame().columns();
+
+        records.add(new AnalysisRecord("Data View " + (records.size() + 1),df,""));
+
         JTable data_table = new JTable(rows,columns);
         JFrame new_window = new JFrame("Data View");
         new_window.setSize(400, 400);
@@ -94,5 +99,9 @@ public class EdassGUI implements ActionListener {
         JScrollPane sp=new JScrollPane(data_table);
         new_window.getContentPane().add(sp);
         new_window.setVisible(true);
+    }
+
+    public void addRecord(){
+
     }
 }

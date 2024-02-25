@@ -1,18 +1,18 @@
 package com.edass.Record;
 
+
+
 /**
  * Represents an operation (Analysis, Transformation etc.) on EDASS which can be stored and executed at a later time
  */
 public class EdassRecord {
+    private String recordName;
 
-}
+    public EdassRecord(String recordName) {
+        this.recordName = recordName;
+    }
 
-
-class AnalysisRecord extends EdassRecord{
-
-}
-
-
-class TransformationRecord extends  EdassRecord{
-
+    public String getRecordName() {
+        return recordName;
+    }
 }
